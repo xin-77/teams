@@ -1,25 +1,18 @@
 package com.gec.teams.wechat.mapper;
 
-import com.gec.teams.wechat.entity.TbMeetingentity;
+import com.gec.teams.wechat.entity.TbMeeting;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
 * @author Administrator
 * @description 针对表【tb_meeting(会议表)】的数据库操作Mapper
-* @createDate 2023-07-03 15:42:16
-* @Entity com.gec.teams.wechat.domain.TbMeetingentity
+* @createDate 2023-07-03 17:04:31
+* @Entity com.gec.teams.wechat.entity.TbMeeting
 */
-public interface TbMeetingMapper {
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(TbMeetingentity record);
-
-    int insertSelective(TbMeetingentity record);
-
-    TbMeetingentity selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(TbMeetingentity record);
-
-    int updateByPrimaryKey(TbMeetingentity record);
+public interface TbMeetingMapper extends BaseMapper<TbMeeting> {
 
 }
+
+
+
+

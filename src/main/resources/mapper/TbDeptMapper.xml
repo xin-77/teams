@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gec.teams.wechat.mapper.TbDeptMapper">
 
-    <resultMap id="BaseResultMap" type="com.gec.teams.wechat.entity.TbDeptentity">
+    <resultMap id="BaseResultMap" type="com.gec.teams.wechat.entity.TbDept">
             <id property="id" column="id" jdbcType="OTHER"/>
             <result property="deptName" column="dept_name" jdbcType="VARCHAR"/>
     </resultMap>
@@ -12,47 +12,4 @@
     <sql id="Base_Column_List">
         id,dept_name
     </sql>
-
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from tb_dept
-        where  id = #{id,jdbcType=OTHER} 
-    </select>
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from tb_dept
-        where  id = #{id,jdbcType=OTHER} 
-    </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.entity.TbDeptentity" useGeneratedKeys="true">
-        insert into tb_dept
-        ( id,dept_name)
-        values (#{id,jdbcType=OTHER},#{deptName,jdbcType=VARCHAR})
-    </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.entity.TbDeptentity" useGeneratedKeys="true">
-        insert into tb_dept
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="id != null">id,</if>
-                <if test="deptName != null">dept_name,</if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="id != null">#{id,jdbcType=OTHER},</if>
-                <if test="deptName != null">#{deptName,jdbcType=VARCHAR},</if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.gec.teams.wechat.entity.TbDeptentity">
-        update tb_dept
-        <set>
-                <if test="deptName != null">
-                    dept_name = #{deptName,jdbcType=VARCHAR},
-                </if>
-        </set>
-        where   id = #{id,jdbcType=OTHER} 
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.gec.teams.wechat.entity.TbDeptentity">
-        update tb_dept
-        set 
-            dept_name =  #{deptName,jdbcType=VARCHAR}
-        where   id = #{id,jdbcType=OTHER} 
-    </update>
 </mapper>

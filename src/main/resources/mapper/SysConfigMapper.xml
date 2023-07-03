@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gec.teams.wechat.mapper.SysConfigMapper">
 
-    <resultMap id="BaseResultMap" type="com.gec.teams.wechat.entity.SysConfigentity">
+    <resultMap id="BaseResultMap" type="com.gec.teams.wechat.entity.SysConfig">
             <id property="id" column="id" jdbcType="OTHER"/>
             <result property="paramKey" column="param_key" jdbcType="VARCHAR"/>
             <result property="paramValue" column="param_value" jdbcType="VARCHAR"/>
@@ -16,67 +16,4 @@
         id,param_key,param_value,
         status,remark
     </sql>
-
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from sys_config
-        where  id = #{id,jdbcType=OTHER} 
-    </select>
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from sys_config
-        where  id = #{id,jdbcType=OTHER} 
-    </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.entity.SysConfigentity" useGeneratedKeys="true">
-        insert into sys_config
-        ( id,param_key,param_value
-        ,status,remark)
-        values (#{id,jdbcType=OTHER},#{paramKey,jdbcType=VARCHAR},#{paramValue,jdbcType=VARCHAR}
-        ,#{status,jdbcType=TINYINT},#{remark,jdbcType=VARCHAR})
-    </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.entity.SysConfigentity" useGeneratedKeys="true">
-        insert into sys_config
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="id != null">id,</if>
-                <if test="paramKey != null">param_key,</if>
-                <if test="paramValue != null">param_value,</if>
-                <if test="status != null">status,</if>
-                <if test="remark != null">remark,</if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="id != null">#{id,jdbcType=OTHER},</if>
-                <if test="paramKey != null">#{paramKey,jdbcType=VARCHAR},</if>
-                <if test="paramValue != null">#{paramValue,jdbcType=VARCHAR},</if>
-                <if test="status != null">#{status,jdbcType=TINYINT},</if>
-                <if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.gec.teams.wechat.entity.SysConfigentity">
-        update sys_config
-        <set>
-                <if test="paramKey != null">
-                    param_key = #{paramKey,jdbcType=VARCHAR},
-                </if>
-                <if test="paramValue != null">
-                    param_value = #{paramValue,jdbcType=VARCHAR},
-                </if>
-                <if test="status != null">
-                    status = #{status,jdbcType=TINYINT},
-                </if>
-                <if test="remark != null">
-                    remark = #{remark,jdbcType=VARCHAR},
-                </if>
-        </set>
-        where   id = #{id,jdbcType=OTHER} 
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.gec.teams.wechat.entity.SysConfigentity">
-        update sys_config
-        set 
-            param_key =  #{paramKey,jdbcType=VARCHAR},
-            param_value =  #{paramValue,jdbcType=VARCHAR},
-            status =  #{status,jdbcType=TINYINT},
-            remark =  #{remark,jdbcType=VARCHAR}
-        where   id = #{id,jdbcType=OTHER} 
-    </update>
 </mapper>

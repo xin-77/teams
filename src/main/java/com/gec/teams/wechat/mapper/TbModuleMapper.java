@@ -1,25 +1,18 @@
 package com.gec.teams.wechat.mapper;
 
-import com.gec.teams.wechat.entity.TbModuleentity;
+import com.gec.teams.wechat.entity.TbModule;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
 * @author Administrator
 * @description 针对表【tb_module(模块资源表)】的数据库操作Mapper
-* @createDate 2023-07-03 15:42:16
-* @Entity com.gec.teams.wechat.domain.TbModuleentity
+* @createDate 2023-07-03 17:04:31
+* @Entity com.gec.teams.wechat.entity.TbModule
 */
-public interface TbModuleMapper {
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(TbModuleentity record);
-
-    int insertSelective(TbModuleentity record);
-
-    TbModuleentity selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(TbModuleentity record);
-
-    int updateByPrimaryKey(TbModuleentity record);
+public interface TbModuleMapper extends BaseMapper<TbModule> {
 
 }
+
+
+
+

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gec.teams.wechat.mapper.TbModuleMapper">
 
-    <resultMap id="BaseResultMap" type="com.gec.teams.wechat.entity.TbModuleentity">
+    <resultMap id="BaseResultMap" type="com.gec.teams.wechat.entity.TbModule">
             <id property="id" column="id" jdbcType="OTHER"/>
             <result property="moduleCode" column="module_code" jdbcType="VARCHAR"/>
             <result property="moduleName" column="module_name" jdbcType="VARCHAR"/>
@@ -13,55 +13,4 @@
     <sql id="Base_Column_List">
         id,module_code,module_name
     </sql>
-
-    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List" />
-        from tb_module
-        where  id = #{id,jdbcType=OTHER} 
-    </select>
-
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-        delete from tb_module
-        where  id = #{id,jdbcType=OTHER} 
-    </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.entity.TbModuleentity" useGeneratedKeys="true">
-        insert into tb_module
-        ( id,module_code,module_name
-        )
-        values (#{id,jdbcType=OTHER},#{moduleCode,jdbcType=VARCHAR},#{moduleName,jdbcType=VARCHAR}
-        )
-    </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.entity.TbModuleentity" useGeneratedKeys="true">
-        insert into tb_module
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="id != null">id,</if>
-                <if test="moduleCode != null">module_code,</if>
-                <if test="moduleName != null">module_name,</if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-                <if test="id != null">#{id,jdbcType=OTHER},</if>
-                <if test="moduleCode != null">#{moduleCode,jdbcType=VARCHAR},</if>
-                <if test="moduleName != null">#{moduleName,jdbcType=VARCHAR},</if>
-        </trim>
-    </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.gec.teams.wechat.entity.TbModuleentity">
-        update tb_module
-        <set>
-                <if test="moduleCode != null">
-                    module_code = #{moduleCode,jdbcType=VARCHAR},
-                </if>
-                <if test="moduleName != null">
-                    module_name = #{moduleName,jdbcType=VARCHAR},
-                </if>
-        </set>
-        where   id = #{id,jdbcType=OTHER} 
-    </update>
-    <update id="updateByPrimaryKey" parameterType="com.gec.teams.wechat.entity.TbModuleentity">
-        update tb_module
-        set 
-            module_code =  #{moduleCode,jdbcType=VARCHAR},
-            module_name =  #{moduleName,jdbcType=VARCHAR}
-        where   id = #{id,jdbcType=OTHER} 
-    </update>
 </mapper>

@@ -1,25 +1,18 @@
 package com.gec.teams.wechat.mapper;
 
-import com.gec.teams.wechat.entity.SysConfigentity;
+import com.gec.teams.wechat.entity.SysConfig;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
 * @author Administrator
 * @description 针对表【sys_config】的数据库操作Mapper
-* @createDate 2023-07-03 15:42:16
-* @Entity com.gec.teams.wechat.domain.SysConfigentity
+* @createDate 2023-07-03 17:04:31
+* @Entity com.gec.teams.wechat.entity.SysConfig
 */
-public interface SysConfigMapper {
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(SysConfigentity record);
-
-    int insertSelective(SysConfigentity record);
-
-    SysConfigentity selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(SysConfigentity record);
-
-    int updateByPrimaryKey(SysConfigentity record);
+public interface SysConfigMapper extends BaseMapper<SysConfig> {
 
 }
+
+
+
+

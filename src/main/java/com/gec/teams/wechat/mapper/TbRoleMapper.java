@@ -1,25 +1,18 @@
 package com.gec.teams.wechat.mapper;
 
-import com.gec.teams.wechat.entity.TbRoleentity;
+import com.gec.teams.wechat.entity.TbRole;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
 * @author Administrator
 * @description 针对表【tb_role(角色表)】的数据库操作Mapper
-* @createDate 2023-07-03 15:42:16
-* @Entity com.gec.teams.wechat.domain.TbRoleentity
+* @createDate 2023-07-03 17:04:31
+* @Entity com.gec.teams.wechat.entity.TbRole
 */
-public interface TbRoleMapper {
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(TbRoleentity record);
-
-    int insertSelective(TbRoleentity record);
-
-    TbRoleentity selectByPrimaryKey(Long id);
-
-    int updateByPrimaryKeySelective(TbRoleentity record);
-
-    int updateByPrimaryKey(TbRoleentity record);
+public interface TbRoleMapper extends BaseMapper<TbRole> {
 
 }
+
+
+
+
