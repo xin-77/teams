@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gec.teams.wechat.mapper.TbPermissionMapper">
+
+    <resultMap id="BaseResultMap" type="com.gec.teams.wechat.domain.TbPermissionentity">
+            <id property="id" column="id" jdbcType="OTHER"/>
+            <result property="permissionName" column="permission_name" jdbcType="VARCHAR"/>
+            <result property="moduleId" column="module_id" jdbcType="OTHER"/>
+            <result property="actionId" column="action_id" jdbcType="OTHER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,permission_name,module_id,
+        action_id
+    </sql>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from tb_permission
+        where  id = #{id,jdbcType=OTHER} 
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+        delete from tb_permission
+        where  id = #{id,jdbcType=OTHER} 
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.domain.TbPermissionentity" useGeneratedKeys="true">
+        insert into tb_permission
+        ( id,permission_name,module_id
+        ,action_id)
+        values (#{id,jdbcType=OTHER},#{permissionName,jdbcType=VARCHAR},#{moduleId,jdbcType=OTHER}
+        ,#{actionId,jdbcType=OTHER})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.domain.TbPermissionentity" useGeneratedKeys="true">
+        insert into tb_permission
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+                <if test="id != null">id,</if>
+                <if test="permissionName != null">permission_name,</if>
+                <if test="moduleId != null">module_id,</if>
+                <if test="actionId != null">action_id,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+                <if test="id != null">#{id,jdbcType=OTHER},</if>
+                <if test="permissionName != null">#{permissionName,jdbcType=VARCHAR},</if>
+                <if test="moduleId != null">#{moduleId,jdbcType=OTHER},</if>
+                <if test="actionId != null">#{actionId,jdbcType=OTHER},</if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.gec.teams.wechat.domain.TbPermissionentity">
+        update tb_permission
+        <set>
+                <if test="permissionName != null">
+                    permission_name = #{permissionName,jdbcType=VARCHAR},
+                </if>
+                <if test="moduleId != null">
+                    module_id = #{moduleId,jdbcType=OTHER},
+                </if>
+                <if test="actionId != null">
+                    action_id = #{actionId,jdbcType=OTHER},
+                </if>
+        </set>
+        where   id = #{id,jdbcType=OTHER} 
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.gec.teams.wechat.domain.TbPermissionentity">
+        update tb_permission
+        set 
+            permission_name =  #{permissionName,jdbcType=VARCHAR},
+            module_id =  #{moduleId,jdbcType=OTHER},
+            action_id =  #{actionId,jdbcType=OTHER}
+        where   id = #{id,jdbcType=OTHER} 
+    </update>
+</mapper>
