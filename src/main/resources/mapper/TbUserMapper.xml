@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gec.teams.wechat.mapper.TbUserMapper">
 
-    <resultMap id="BaseResultMap" type="com.gec.teams.wechat.domain.TbUserentity">
+    <resultMap id="BaseResultMap" type="com.gec.teams.wechat.entity.TbUserentity">
             <id property="id" column="id" jdbcType="OTHER"/>
             <result property="openId" column="open_id" jdbcType="VARCHAR"/>
             <result property="nickname" column="nickname" jdbcType="VARCHAR"/>
@@ -40,7 +40,7 @@
         delete from tb_user
         where  id = #{id,jdbcType=OTHER} 
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.domain.TbUserentity" useGeneratedKeys="true">
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.entity.TbUserentity" useGeneratedKeys="true">
         insert into tb_user
         ( id,open_id,nickname
         ,photo,name,sex
@@ -53,7 +53,7 @@
         ,#{role,jdbcType=OTHER},#{root,jdbcType=TINYINT},#{deptId,jdbcType=OTHER}
         ,#{status,jdbcType=TINYINT},#{createTime,jdbcType=TIMESTAMP})
     </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.domain.TbUserentity" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.entity.TbUserentity" useGeneratedKeys="true">
         insert into tb_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
                 <if test="id != null">id,</if>
@@ -88,7 +88,7 @@
                 <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.gec.teams.wechat.domain.TbUserentity">
+    <update id="updateByPrimaryKeySelective" parameterType="com.gec.teams.wechat.entity.TbUserentity">
         update tb_user
         <set>
                 <if test="openId != null">
@@ -133,7 +133,7 @@
         </set>
         where   id = #{id,jdbcType=OTHER} 
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.gec.teams.wechat.domain.TbUserentity">
+    <update id="updateByPrimaryKey" parameterType="com.gec.teams.wechat.entity.TbUserentity">
         update tb_user
         set 
             open_id =  #{openId,jdbcType=VARCHAR},

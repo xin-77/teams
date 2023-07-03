@@ -1,6 +1,6 @@
 package com.gec.teams.wechat.mapper;
 
-import com.gec.teams.wechat.domain.TbRoleentity;
+import com.gec.teams.wechat.entity.TbRoleentity;
 
 /**
 * @author Administrator

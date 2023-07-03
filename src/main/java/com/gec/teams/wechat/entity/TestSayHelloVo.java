@@ -1,11 +1,11 @@
-package com.gec.teams.wechat.domain;
+package com.gec.teams.wechat.entity;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
+
 @Data
 @ApiModel("测试sayhello参数类")
 public class TestSayHelloVo {

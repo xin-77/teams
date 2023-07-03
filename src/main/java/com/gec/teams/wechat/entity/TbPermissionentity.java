@@ -1,4 +1,4 @@
-package com.gec.teams.wechat.domain;
+package com.gec.teams.wechat.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -8,12 +8,12 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 模块资源表
- * @TableName tb_module
+ * 
+ * @TableName tb_permission
  */
-@TableName(value ="tb_module")
+@TableName(value ="tb_permission")
 @Data
-public class TbModuleentity implements Serializable {
+public class TbPermissionentity implements Serializable {
     /**
      * 主键
      */
@@ -21,14 +21,19 @@ public class TbModuleentity implements Serializable {
     private Object id;
 
     /**
-     * 模块编号
+     * 权限
      */
-    private String moduleCode;
+    private String permissionName;
 
     /**
-     * 模块名称
+     * 模块ID
      */
-    private String moduleName;
+    private Object moduleId;
+
+    /**
+     * 行为ID
+     */
+    private Object actionId;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -44,10 +49,11 @@ public class TbModuleentity implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        TbModuleentity other = (TbModuleentity) that;
+        TbPermissionentity other = (TbPermissionentity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getModuleCode() == null ? other.getModuleCode() == null : this.getModuleCode().equals(other.getModuleCode()))
-            && (this.getModuleName() == null ? other.getModuleName() == null : this.getModuleName().equals(other.getModuleName()));
+            && (this.getPermissionName() == null ? other.getPermissionName() == null : this.getPermissionName().equals(other.getPermissionName()))
+            && (this.getModuleId() == null ? other.getModuleId() == null : this.getModuleId().equals(other.getModuleId()))
+            && (this.getActionId() == null ? other.getActionId() == null : this.getActionId().equals(other.getActionId()));
     }
 
     @Override
@@ -55,8 +61,9 @@ public class TbModuleentity implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getModuleCode() == null) ? 0 : getModuleCode().hashCode());
-        result = prime * result + ((getModuleName() == null) ? 0 : getModuleName().hashCode());
+        result = prime * result + ((getPermissionName() == null) ? 0 : getPermissionName().hashCode());
+        result = prime * result + ((getModuleId() == null) ? 0 : getModuleId().hashCode());
+        result = prime * result + ((getActionId() == null) ? 0 : getActionId().hashCode());
         return result;
     }
 
@@ -67,8 +74,9 @@ public class TbModuleentity implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", moduleCode=").append(moduleCode);
-        sb.append(", moduleName=").append(moduleName);
+        sb.append(", permissionName=").append(permissionName);
+        sb.append(", moduleId=").append(moduleId);
+        sb.append(", actionId=").append(actionId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

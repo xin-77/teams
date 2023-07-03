@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gec.teams.wechat.mapper.SysConfigMapper">
 
-    <resultMap id="BaseResultMap" type="com.gec.teams.wechat.domain.SysConfigentity">
+    <resultMap id="BaseResultMap" type="com.gec.teams.wechat.entity.SysConfigentity">
             <id property="id" column="id" jdbcType="OTHER"/>
             <result property="paramKey" column="param_key" jdbcType="VARCHAR"/>
             <result property="paramValue" column="param_value" jdbcType="VARCHAR"/>
@@ -28,14 +28,14 @@
         delete from sys_config
         where  id = #{id,jdbcType=OTHER} 
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.domain.SysConfigentity" useGeneratedKeys="true">
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.entity.SysConfigentity" useGeneratedKeys="true">
         insert into sys_config
         ( id,param_key,param_value
         ,status,remark)
         values (#{id,jdbcType=OTHER},#{paramKey,jdbcType=VARCHAR},#{paramValue,jdbcType=VARCHAR}
         ,#{status,jdbcType=TINYINT},#{remark,jdbcType=VARCHAR})
     </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.domain.SysConfigentity" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.entity.SysConfigentity" useGeneratedKeys="true">
         insert into sys_config
         <trim prefix="(" suffix=")" suffixOverrides=",">
                 <if test="id != null">id,</if>
@@ -52,7 +52,7 @@
                 <if test="remark != null">#{remark,jdbcType=VARCHAR},</if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.gec.teams.wechat.domain.SysConfigentity">
+    <update id="updateByPrimaryKeySelective" parameterType="com.gec.teams.wechat.entity.SysConfigentity">
         update sys_config
         <set>
                 <if test="paramKey != null">
@@ -70,7 +70,7 @@
         </set>
         where   id = #{id,jdbcType=OTHER} 
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.gec.teams.wechat.domain.SysConfigentity">
+    <update id="updateByPrimaryKey" parameterType="com.gec.teams.wechat.entity.SysConfigentity">
         update sys_config
         set 
             param_key =  #{paramKey,jdbcType=VARCHAR},

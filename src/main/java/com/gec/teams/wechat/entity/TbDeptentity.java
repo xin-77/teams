@@ -1,30 +1,29 @@
-package com.gec.teams.wechat.domain;
+package com.gec.teams.wechat.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
 
 /**
  * 
- * @TableName tb_workday
+ * @TableName tb_dept
  */
-@TableName(value ="tb_workday")
+@TableName(value ="tb_dept")
 @Data
-public class TbWorkdayentity implements Serializable {
+public class TbDeptentity implements Serializable {
     /**
      * 主键
      */
     @TableId(type = IdType.AUTO)
-    private Integer id;
+    private Object id;
 
     /**
-     * 日期
+     * 部门名称
      */
-    private Date date;
+    private String deptName;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -40,9 +39,9 @@ public class TbWorkdayentity implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        TbWorkdayentity other = (TbWorkdayentity) that;
+        TbDeptentity other = (TbDeptentity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getDate() == null ? other.getDate() == null : this.getDate().equals(other.getDate()));
+            && (this.getDeptName() == null ? other.getDeptName() == null : this.getDeptName().equals(other.getDeptName()));
     }
 
     @Override
@@ -50,7 +49,7 @@ public class TbWorkdayentity implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getDate() == null) ? 0 : getDate().hashCode());
+        result = prime * result + ((getDeptName() == null) ? 0 : getDeptName().hashCode());
         return result;
     }
 
@@ -61,7 +60,7 @@ public class TbWorkdayentity implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", date=").append(date);
+        sb.append(", deptName=").append(deptName);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

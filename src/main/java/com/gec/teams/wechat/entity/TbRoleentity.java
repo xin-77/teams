@@ -1,4 +1,4 @@
-package com.gec.teams.wechat.domain;
+package com.gec.teams.wechat.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -8,12 +8,12 @@ import java.io.Serializable;
 import lombok.Data;
 
 /**
- * 行为表
- * @TableName tb_action
+ * 角色表
+ * @TableName tb_role
  */
-@TableName(value ="tb_action")
+@TableName(value ="tb_role")
 @Data
-public class TbActionentity implements Serializable {
+public class TbRoleentity implements Serializable {
     /**
      * 主键
      */
@@ -21,14 +21,14 @@ public class TbActionentity implements Serializable {
     private Object id;
 
     /**
-     * 行为编号
+     * 角色名称
      */
-    private String actionCode;
+    private String roleName;
 
     /**
-     * 行为名称
+     * 权限集合
      */
-    private String actionName;
+    private Object permissions;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -44,10 +44,10 @@ public class TbActionentity implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        TbActionentity other = (TbActionentity) that;
+        TbRoleentity other = (TbRoleentity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getActionCode() == null ? other.getActionCode() == null : this.getActionCode().equals(other.getActionCode()))
-            && (this.getActionName() == null ? other.getActionName() == null : this.getActionName().equals(other.getActionName()));
+            && (this.getRoleName() == null ? other.getRoleName() == null : this.getRoleName().equals(other.getRoleName()))
+            && (this.getPermissions() == null ? other.getPermissions() == null : this.getPermissions().equals(other.getPermissions()));
     }
 
     @Override
@@ -55,8 +55,8 @@ public class TbActionentity implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getActionCode() == null) ? 0 : getActionCode().hashCode());
-        result = prime * result + ((getActionName() == null) ? 0 : getActionName().hashCode());
+        result = prime * result + ((getRoleName() == null) ? 0 : getRoleName().hashCode());
+        result = prime * result + ((getPermissions() == null) ? 0 : getPermissions().hashCode());
         return result;
     }
 
@@ -67,8 +67,8 @@ public class TbActionentity implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", actionCode=").append(actionCode);
-        sb.append(", actionName=").append(actionName);
+        sb.append(", roleName=").append(roleName);
+        sb.append(", permissions=").append(permissions);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

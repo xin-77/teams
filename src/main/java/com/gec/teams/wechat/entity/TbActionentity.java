@@ -1,20 +1,19 @@
-package com.gec.teams.wechat.domain;
+package com.gec.teams.wechat.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
-import java.util.Date;
 import lombok.Data;
 
 /**
- * 节假日表
- * @TableName tb_holidays
+ * 行为表
+ * @TableName tb_action
  */
-@TableName(value ="tb_holidays")
+@TableName(value ="tb_action")
 @Data
-public class TbHolidaysentity implements Serializable {
+public class TbActionentity implements Serializable {
     /**
      * 主键
      */
@@ -22,9 +21,14 @@ public class TbHolidaysentity implements Serializable {
     private Object id;
 
     /**
-     * 日期
+     * 行为编号
      */
-    private Date date;
+    private String actionCode;
+
+    /**
+     * 行为名称
+     */
+    private String actionName;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -40,9 +44,10 @@ public class TbHolidaysentity implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        TbHolidaysentity other = (TbHolidaysentity) that;
+        TbActionentity other = (TbActionentity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getDate() == null ? other.getDate() == null : this.getDate().equals(other.getDate()));
+            && (this.getActionCode() == null ? other.getActionCode() == null : this.getActionCode().equals(other.getActionCode()))
+            && (this.getActionName() == null ? other.getActionName() == null : this.getActionName().equals(other.getActionName()));
     }
 
     @Override
@@ -50,7 +55,8 @@ public class TbHolidaysentity implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getDate() == null) ? 0 : getDate().hashCode());
+        result = prime * result + ((getActionCode() == null) ? 0 : getActionCode().hashCode());
+        result = prime * result + ((getActionName() == null) ? 0 : getActionName().hashCode());
         return result;
     }
 
@@ -61,7 +67,8 @@ public class TbHolidaysentity implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", date=").append(date);
+        sb.append(", actionCode=").append(actionCode);
+        sb.append(", actionName=").append(actionName);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

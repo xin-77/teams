@@ -1,19 +1,20 @@
-package com.gec.teams.wechat.domain;
+package com.gec.teams.wechat.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.util.Date;
 import lombok.Data;
 
 /**
- * 疫情城市列表
- * @TableName tb_city
+ * 节假日表
+ * @TableName tb_holidays
  */
-@TableName(value ="tb_city")
+@TableName(value ="tb_holidays")
 @Data
-public class TbCityentity implements Serializable {
+public class TbHolidaysentity implements Serializable {
     /**
      * 主键
      */
@@ -21,14 +22,9 @@ public class TbCityentity implements Serializable {
     private Object id;
 
     /**
-     * 城市名称
+     * 日期
      */
-    private String city;
-
-    /**
-     * 拼音简称
-     */
-    private String code;
+    private Date date;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -44,10 +40,9 @@ public class TbCityentity implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        TbCityentity other = (TbCityentity) that;
+        TbHolidaysentity other = (TbHolidaysentity) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getCity() == null ? other.getCity() == null : this.getCity().equals(other.getCity()))
-            && (this.getCode() == null ? other.getCode() == null : this.getCode().equals(other.getCode()));
+            && (this.getDate() == null ? other.getDate() == null : this.getDate().equals(other.getDate()));
     }
 
     @Override
@@ -55,8 +50,7 @@ public class TbCityentity implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getCity() == null) ? 0 : getCity().hashCode());
-        result = prime * result + ((getCode() == null) ? 0 : getCode().hashCode());
+        result = prime * result + ((getDate() == null) ? 0 : getDate().hashCode());
         return result;
     }
 
@@ -67,8 +61,7 @@ public class TbCityentity implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", city=").append(city);
-        sb.append(", code=").append(code);
+        sb.append(", date=").append(date);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gec.teams.wechat.mapper.TbCheckinMapper">
 
-    <resultMap id="BaseResultMap" type="com.gec.teams.wechat.domain.TbCheckinentity">
+    <resultMap id="BaseResultMap" type="com.gec.teams.wechat.entity.TbCheckinentity">
             <id property="id" column="id" jdbcType="OTHER"/>
             <result property="userId" column="user_id" jdbcType="OTHER"/>
             <result property="address" column="address" jdbcType="VARCHAR"/>
@@ -36,7 +36,7 @@
         delete from tb_checkin
         where  id = #{id,jdbcType=OTHER} 
     </delete>
-    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.domain.TbCheckinentity" useGeneratedKeys="true">
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.entity.TbCheckinentity" useGeneratedKeys="true">
         insert into tb_checkin
         ( id,user_id,address
         ,country,province,city
@@ -47,7 +47,7 @@
         ,#{district,jdbcType=VARCHAR},#{status,jdbcType=TINYINT},#{risk,jdbcType=OTHER}
         ,#{date,jdbcType=DATE},#{createTime,jdbcType=TIMESTAMP})
     </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.domain.TbCheckinentity" useGeneratedKeys="true">
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.gec.teams.wechat.entity.TbCheckinentity" useGeneratedKeys="true">
         insert into tb_checkin
         <trim prefix="(" suffix=")" suffixOverrides=",">
                 <if test="id != null">id,</if>
@@ -76,7 +76,7 @@
                 <if test="createTime != null">#{createTime,jdbcType=TIMESTAMP},</if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.gec.teams.wechat.domain.TbCheckinentity">
+    <update id="updateByPrimaryKeySelective" parameterType="com.gec.teams.wechat.entity.TbCheckinentity">
         update tb_checkin
         <set>
                 <if test="userId != null">
@@ -112,7 +112,7 @@
         </set>
         where   id = #{id,jdbcType=OTHER} 
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.gec.teams.wechat.domain.TbCheckinentity">
+    <update id="updateByPrimaryKey" parameterType="com.gec.teams.wechat.entity.TbCheckinentity">
         update tb_checkin
         set 
             user_id =  #{userId,jdbcType=OTHER},
