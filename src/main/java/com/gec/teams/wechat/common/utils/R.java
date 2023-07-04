@@ -4,6 +4,9 @@ import org.apache.http.HttpStatus;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ *  封装统一返回值
+ */
 public class R  extends HashMap<String,Object> {
     public R(){//默认绑定数据
         put("code", HttpStatus.SC_OK);//状态码

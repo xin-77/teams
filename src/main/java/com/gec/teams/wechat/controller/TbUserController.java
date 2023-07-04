@@ -4,6 +4,7 @@ package com.gec.teams.wechat.controller;
 import com.gec.teams.wechat.common.utils.R;
 import com.gec.teams.wechat.config.shiro.JwtUtil;
 import com.gec.teams.wechat.service.TbUserService;
+import com.gec.teams.wechat.vo.LoginFormVo;
 import com.gec.teams.wechat.vo.RegisterFormVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
@@ -64,5 +65,16 @@ public class TbUserController {
         redisTemplate.opsForValue().set(token,userId+"",cacheExpire);
     }
 
+
+    @PostMapping("/login")
+    @ApiOperation("用户登录")
+    public R login(@Valid@RequestBody LoginFormVo form){
+
+        Integer id = tbUserService.login(form.getCode());
+        String token = jwtUtil.createToken(id);
+        Set<String> permsSet = tbUserService.searchUserPermissions(id);
+        saveCacheToken(token,id);
+        return R.ok("用户登录成功").put("token",token).put("permission",permsSet);
+    }
 
 }
