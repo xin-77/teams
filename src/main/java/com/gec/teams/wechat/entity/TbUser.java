@@ -4,9 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
-import lombok.Data;
 
 /**
  * 用户表
@@ -19,7 +20,7 @@ public class TbUser implements Serializable {
      * 主键
      */
     @TableId(type = IdType.AUTO)
-    private Object id;
+    private Integer id;
 
     /**
      * 长期授权字符串
@@ -69,12 +70,12 @@ public class TbUser implements Serializable {
     /**
      * 是否是超级管理员
      */
-    private Integer root;
+    private Boolean root;
 
     /**
      * 部门编号
      */
-    private Object deptId;
+    private Integer deptId;
 
     /**
      * 状态

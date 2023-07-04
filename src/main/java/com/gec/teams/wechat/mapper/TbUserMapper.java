@@ -1,7 +1,10 @@
 package com.gec.teams.wechat.mapper;
 
-import com.gec.teams.wechat.entity.TbUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.gec.teams.wechat.entity.TbUser;
+import org.mapstruct.Mapper;
+
+import java.util.Set;
 
 /**
 * @author Administrator
@@ -9,8 +12,10 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2023-07-03 17:04:31
 * @Entity com.gec.teams.wechat.entity.TbUser
 */
+@Mapper
 public interface TbUserMapper extends BaseMapper<TbUser> {
-
+    public boolean haveRootUser();
+    public Set<String> searchUserPermissions(int userId);
 }
 
 

@@ -28,4 +28,17 @@
         role,root,dept_id,
         status,create_time
     </sql>
+    <select id="haveRootUser" resultType="java.lang.Boolean">
+        SELECT IF(COUNT(*), TRUE, FALSE)
+        FROM `tb_user`
+        WHERE root = 1
+        </select>
+
+    <select id="searchUserPermissions" parameterType="int" resultType="string">
+        SELECT p.permission_name
+        FROM tb_user u
+                 JOIN tb_role r ON JSON_CONTAINS(u.role,CAST(r.id AS CHAR))
+                 JOIN tb_permission p ON JSON_CONTAINS(r.permissions,CAST(p.id AS CHAR))
+        WHERE  u.`id`=#{userId} AND u.status= 1
+    </select>
 </mapper>

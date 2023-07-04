@@ -1,7 +1,9 @@
 package com.gec.teams.wechat.service;
 
-import com.gec.teams.wechat.entity.TbUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.gec.teams.wechat.entity.TbUser;
+
+import java.util.Set;
 
 /**
 * @author Administrator
@@ -9,5 +11,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-07-03 17:04:31
 */
 public interface TbUserService extends IService<TbUser> {
-
+    String getOpenId(String code);
+     int registerUser(String registerCode, String code, String nickname, String photo);
+     Set<String> searchUserPermissions(int userId);
+    Integer login(String code);
 }
