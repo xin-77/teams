@@ -52,3 +52,8 @@ mybatis:
         com.gec.teams.db.mapper: warn
       pattern:
         console: "%d{HH:mm:ss}  %-5level  %msg%n"
+teams:
+  jwt:
+    secret: 123456
+    expire: 5 #令牌过期时间
+    cache-expire: 10 #令牌保存时间

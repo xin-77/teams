@@ -77,11 +77,6 @@
             <version>1.2.8</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
-            <version>4.4.14</version>
-        </dependency>
         <!--swagger2依赖-->
         <dependency>
             <groupId>io.springfox</groupId>
