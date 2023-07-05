@@ -24,4 +24,11 @@
         district,status,risk,
         date,create_time
     </sql>
+    <select id="haveCheckin" parameterType="hashmap" resultType="java.lang.Integer">
+        SELECT id
+        FROM tb_checkin
+        WHERE user_id =#{userId} AND date = CURRENT_DATE
+          AND create_time BETWEEN #{start} AND #{end}
+        LIMIT 1;
+    </select>
 </mapper>

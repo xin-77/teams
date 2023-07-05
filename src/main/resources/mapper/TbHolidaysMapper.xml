@@ -12,4 +12,7 @@
     <sql id="Base_Column_List">
         id,date
     </sql>
+    <select id="searchTodayIsHolidays" resultType="java.lang.Integer">
+        SELECT id FROM tb_holidays WHERE date=CURRENT_DATE LIMIT 1
+    </select>
 </mapper>

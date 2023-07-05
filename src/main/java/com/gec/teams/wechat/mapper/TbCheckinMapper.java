@@ -1,7 +1,9 @@
 package com.gec.teams.wechat.mapper;
 
-import com.gec.teams.wechat.entity.TbCheckin;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.gec.teams.wechat.entity.TbCheckin;
+
+import java.util.HashMap;
 
 /**
 * @author Administrator
@@ -10,7 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.gec.teams.wechat.entity.TbCheckin
 */
 public interface TbCheckinMapper extends BaseMapper<TbCheckin> {
-
+    public Integer haveCheckin(HashMap param);
 }
 
 

@@ -1,7 +1,9 @@
 package com.gec.teams.wechat.mapper;
 
-import com.gec.teams.wechat.entity.SysConfig;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.gec.teams.wechat.entity.SysConfig;
+
+import java.util.List;
 
 /**
 * @author Administrator
@@ -10,7 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.gec.teams.wechat.entity.SysConfig
 */
 public interface SysConfigMapper extends BaseMapper<SysConfig> {
-
+    public List<SysConfig> selectAllParam();
 }
 
 

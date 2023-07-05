@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.gec.teams.wechat.entity.TbWorkday
 */
 public interface TbWorkdayMapper extends BaseMapper<TbWorkday> {
-
+    public Integer searchTodayIsWorkday();
 }
 
 

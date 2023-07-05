@@ -8,6 +8,8 @@ import com.gec.teams.wechat.vo.LoginFormVo;
 import com.gec.teams.wechat.vo.RegisterFormVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -75,6 +77,13 @@ public class TbUserController {
         Set<String> permsSet = tbUserService.searchUserPermissions(id);
         saveCacheToken(token,id);
         return R.ok("用户登录成功").put("token",token).put("permission",permsSet);
+    }
+
+    @PostMapping("/addUser")
+    @ApiOperation("添加用户")
+    @RequiresPermissions(value = {"ROOT","USER:INSERT"},logical = Logical.OR)
+    public R addUser(){
+        return R.ok("用户添加成功");
     }
 
 }

@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @Entity com.gec.teams.wechat.entity.TbHolidays
 */
 public interface TbHolidaysMapper extends BaseMapper<TbHolidays> {
-
+    public Integer searchTodayIsHolidays();
 }
 
 
