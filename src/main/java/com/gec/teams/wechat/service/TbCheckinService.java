@@ -1,7 +1,10 @@
 package com.gec.teams.wechat.service;
 
-import com.gec.teams.wechat.entity.TbCheckin;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.gec.teams.wechat.entity.TbCheckin;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.HashMap;
 
 /**
 * @author Administrator
@@ -10,4 +13,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface TbCheckinService extends IService<TbCheckin> {
     public String validCanCheckin(int userId,String date);
+
+    public void checkin(HashMap hashMap );
+    public void createFaceModel(int userId, MultipartFile file);
 }
