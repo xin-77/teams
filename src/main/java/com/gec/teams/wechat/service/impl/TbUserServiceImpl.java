@@ -116,6 +116,11 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
         return tbUser.getId();
     }
 
+    @Override
+    public String searchUserHiredate(int userId) {
+        return tbUserMapper.searchUserHiredate(userId);
+    }
+
 
 }
 

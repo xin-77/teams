@@ -16,6 +16,8 @@ import java.util.Set;
 public interface TbUserMapper extends BaseMapper<TbUser> {
     public boolean haveRootUser();
     public Set<String> searchUserPermissions(int userId);
+
+    public String searchUserHiredate(int userId);
 }
 
 

@@ -41,4 +41,8 @@
                  JOIN tb_permission p ON JSON_CONTAINS(r.permissions,CAST(p.id AS CHAR))
         WHERE  u.`id`=#{userId} AND u.status= 1
     </select>
+    <select id="searchUserHiredate" resultType="java.lang.String" parameterType="int">
+        SELECT hiredate FROM tb_user
+        WHERE id=#{userId} AND status=1
+    </select>
 </mapper>

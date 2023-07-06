@@ -1,7 +1,10 @@
 package com.gec.teams.wechat.mapper;
 
-import com.gec.teams.wechat.entity.TbHolidays;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.gec.teams.wechat.entity.TbHolidays;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
 * @author Administrator
@@ -11,6 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface TbHolidaysMapper extends BaseMapper<TbHolidays> {
     public Integer searchTodayIsHolidays();
+    public ArrayList<String> searchHolidaysInRange(HashMap hashMap);
 }
 
 

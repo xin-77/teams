@@ -15,4 +15,9 @@
     <select id="searchTodayIsHolidays" resultType="java.lang.Integer">
         SELECT id FROM tb_holidays WHERE date=CURRENT_DATE LIMIT 1
     </select>
+    <select id="searchHolidaysInRange" resultType="java.lang.String" parameterType="hashmap">
+        SELECT date
+        FROM tb_holidays
+        WHERE date BETWEEN #{startDate} AND #{endDate}
+    </select>
 </mapper>

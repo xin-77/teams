@@ -3,6 +3,7 @@ package com.gec.teams.wechat.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gec.teams.wechat.entity.TbCheckin;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -13,6 +14,9 @@ import java.util.HashMap;
 */
 public interface TbCheckinMapper extends BaseMapper<TbCheckin> {
     public Integer haveCheckin(HashMap param);
+    public HashMap searchTodayCheckin(int userId);
+    public long searchCheckinDays(int userId);
+    public ArrayList<HashMap> searchWeekCheckin(HashMap param);
 }
 
 

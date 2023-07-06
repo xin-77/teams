@@ -1,7 +1,10 @@
 package com.gec.teams.wechat.mapper;
 
-import com.gec.teams.wechat.entity.TbWorkday;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.gec.teams.wechat.entity.TbWorkday;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
 * @author Administrator
@@ -11,6 +14,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 */
 public interface TbWorkdayMapper extends BaseMapper<TbWorkday> {
     public Integer searchTodayIsWorkday();
+    public ArrayList<String> searchWorkdayInRange(HashMap hashMap);
 }
 
 

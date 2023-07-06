@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.gec.teams.wechat.entity.TbCheckin;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -16,4 +17,8 @@ public interface TbCheckinService extends IService<TbCheckin> {
 
     public void checkin(HashMap hashMap );
     public void createFaceModel(int userId, MultipartFile file);
+
+    public HashMap searchTodayCheckin(int userId);
+    public long searchCheckinDays(int userId);
+    public ArrayList<HashMap> searchWeekCheckin(HashMap param);
 }
