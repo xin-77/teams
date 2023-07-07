@@ -14,7 +14,7 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://192.168.28.129:3306/teams?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+      url: jdbc:mysql://192.168.28.130:3306/teams?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
       username: root
       password: 123456
       initial-size: 8
@@ -23,9 +23,9 @@ spring:
       max-wait: 60000
   redis:
     database: 0
-    host: 192.168.28.129
+    host: 192.168.28.130
     port: 6379
-    password: 123456
+    password: '123456'
     jedis:
       pool:
         max-active: 1000
@@ -34,12 +34,12 @@ spring:
         min-idle: 8
   data:
     mongodb:
-      host: 192.168.28.129
+      host: 192.168.28.130
       port: 27017
       database: teams
       authentication-database: admin
       username: admin
-      password: 123456
+      password: '123456'
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
   type-aliases-package: com.gec.teams.wechat.mapper

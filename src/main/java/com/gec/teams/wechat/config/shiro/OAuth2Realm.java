@@ -1,7 +1,7 @@
 package com.gec.teams.wechat.config.shiro;
 
 import com.gec.teams.wechat.entity.TbUser;
-import com.gec.teams.wechat.service.TbUserService;
+import com.gec.teams.wechat.mapper.TbUserMapper;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -17,7 +17,7 @@ public class OAuth2Realm extends AuthorizingRealm {
     @Autowired
     private com.gec.teams.wechat.config.shiro.JwtUtil jwtUtil;
     @Autowired
-    private TbUserService tbUserService;
+    private TbUserMapper tbUserMapper;
 
     //验证token 是否合法
     @Override
@@ -31,7 +31,7 @@ public class OAuth2Realm extends AuthorizingRealm {
         TbUser user = (TbUser) collection.getPrimaryPrincipal();
         Integer userId = user.getId();
         //获取用户权限列表
-        Set<String> permsSet = tbUserService.searchUserPermissions(userId);
+        Set<String> permsSet = tbUserMapper.searchUserPermissions(userId);
         // 为info设置权限列表
         SimpleAuthorizationInfo info=new SimpleAuthorizationInfo();
         info.setStringPermissions(permsSet);
@@ -45,7 +45,7 @@ public class OAuth2Realm extends AuthorizingRealm {
         String accessToken = (String) token.getPrincipal();
         int userId = jwtUtil.getUserId(accessToken);
         //2.查询用户信息
-        TbUser user = tbUserService.getById(userId);
+        TbUser user = tbUserMapper.selectById(userId);
         if(user==null){//如果查询当前用户状态不为1 账号被锁定
             throw new LockedAccountException("账号已被锁定,请联系管理员");
         }

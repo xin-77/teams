@@ -1,15 +1,18 @@
 package com.gec.teams.wechat.service.impl;
 
 
+import cn.hutool.core.util.IdUtil;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.gec.teams.wechat.entity.MessageEntity;
 import com.gec.teams.wechat.entity.TbUser;
 import com.gec.teams.wechat.exception.TeamsException;
 import com.gec.teams.wechat.mapper.TbUserMapper;
 import com.gec.teams.wechat.service.TbUserService;
+import com.gec.teams.wechat.task.MessageTask;
+import com.gec.teams.wechat.vo.TbUserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,7 +31,7 @@ import java.util.Set;
 @Slf4j
 @Service
 @Scope("prototype")
-public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> implements TbUserService {
+public class TbUserServiceImpl implements TbUserService {
     @Value("${wx.app-id}")
     private String appId;
 
@@ -36,7 +39,10 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
     private String appSecret;
 
     @Autowired
-    private TbUserMapper  tbUserMapper;
+    private TbUserMapper tbUserMapper;
+
+    @Autowired
+    private MessageTask messageTask;
 
 
     @Override
@@ -58,42 +64,58 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
 
     @Override
     public int registerUser(String registerCode, String code, String nickname, String photo) {
-        boolean bool = tbUserMapper.haveRootUser();
+        if (registerCode.equals("000000")) {
+            boolean bool = tbUserMapper.haveRootUser();
+            if (!bool) {
+                String openId = getOpenId(code);
 
-        //如果不存在这在这个账户的话 就注册添加这个用户
-        if (!bool) {
+                TbUserVo tbUserVo = new TbUserVo();
+                tbUserVo.setOpenId(openId);
+                tbUserVo.setNickname(nickname);
+                tbUserVo.setName(nickname);
+                tbUserVo.setPhoto(photo);
+                tbUserVo.setRole("[0]");
+                tbUserVo.setStatus(1);
+                tbUserVo.setCreateTime(new Date());
+                tbUserVo.setRoot(true);
+                tbUserMapper.insert(tbUserVo);
+
+                MessageEntity entity = new MessageEntity();
+                entity.setSenderId(0);//系统发送设为0
+                entity.setSenderName("系统消息");
+                entity.setUuid(IdUtil.simpleUUID());
+                entity.setMsg("欢迎您注册成为超级管理员,请及时更新你的员工个人信息");
+                entity.setSendTime(new Date());
+                messageTask.sendAsync(tbUserVo.getId() + "", entity);
+
+                return tbUserVo.getId();
+            } else {//如果root账号被绑定了抛出异常
+                throw new TeamsException("无法绑定超级管理员账号");
+            }
+        } else {
+            //TODO普通员工注册
             String openId = getOpenId(code);
 
-            //封装用户信息
-            TbUser tbUser = new TbUser();
-            tbUser.setOpenId(openId);
-            tbUser.setNickname(nickname);
-            tbUser.setPhoto(photo);
-            //状态正常为1
-            tbUser.setStatus(1);
-            tbUser.setCreateTime(new Date());
+            TbUserVo tbUserVo = new TbUserVo();
+            tbUserVo.setOpenId(openId);
+            tbUserVo.setNickname(nickname);
+            tbUserVo.setName(nickname);
+            tbUserVo.setPhoto(photo);
+            tbUserVo.setRole("[1, 2, 3, 4, 5, 6, 7, 8]");
+            tbUserVo.setStatus(1);
+            tbUserVo.setCreateTime(new Date());
+            tbUserVo.setRoot(false);
+            tbUserMapper.insert(tbUserVo);
 
+            MessageEntity entity = new MessageEntity();
+            entity.setSenderId(0);//系统发送设为0
+            entity.setSenderName("系统消息");
+            entity.setUuid(IdUtil.simpleUUID());
+            entity.setMsg("欢迎您注册成为Teams用户,请及时更新你的员工个人信息");
+            entity.setSendTime(new Date());
+            messageTask.sendAsync(tbUserVo.getId() + "", entity);
 
-            //TODO 可以新增管理员模块 来添加激活码什么的
-            //我们默认的 超级系统管理员的账号是000000
-            if (registerCode.equals("000000")) {
-                //超级系统管理员注册
-                //0 的角色是超级系统管理员
-                tbUser.setRole("[0]");
-                tbUser.setRoot(true);
-            } else {
-                //TODO 注册时候需要根据不同邀请码去分配不同的角色
-                //没有这个邀请码的就是普通用户
-                tbUser.setRole("[1]");
-                tbUser.setRoot(false);
-            }
-
-            //调用mybatis plus 框架提供的添加方法添加数据到数据库中
-            int insert = tbUserMapper.insert(tbUser);
-            return tbUser.getId();
-        } else {
-            //如果 root账号被绑定了 就抛出异常
-            throw new TeamsException("无法绑定超级管理员账号");
+            return tbUserVo.getId();
         }
     }
 
@@ -107,18 +129,25 @@ public class TbUserServiceImpl extends ServiceImpl<TbUserMapper, TbUser> impleme
         String openId = getOpenId(code);
         QueryWrapper<TbUser> queryWrapper = new QueryWrapper<>();
         //类似于where open_id = openId的sql语句
-        queryWrapper.eq("open_id",openId);
+        queryWrapper.eq("open_id", openId);
         TbUser tbUser = tbUserMapper.selectOne(queryWrapper);
         if (tbUser == null) {
             throw new TeamsException("账号不存在");
         }
-        //TODO 从消息队列中接收消息,转移到消息表
-        return tbUser.getId();
+        // 从消息队列中接收消息,转移到消息表
+        Integer id = tbUser.getId();
+        messageTask.receiveAsync(id+"");
+        return id;
     }
 
     @Override
     public String searchUserHiredate(int userId) {
         return tbUserMapper.searchUserHiredate(userId);
+    }
+
+    @Override
+    public HashMap searchUserSummary(int userId) {
+        return tbUserMapper.searchUserSummary(userId);
     }
 
 

@@ -13,18 +13,16 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.Set;
 
 @RestController
 @RequestMapping("/user")
 @ApiModel("用户模块Web接口")
-public class TbUserController {
+public class UserController {
 
     @Autowired
     private TbUserService tbUserService;
@@ -84,6 +82,14 @@ public class TbUserController {
     @RequiresPermissions(value = {"ROOT","USER:INSERT"},logical = Logical.OR)
     public R addUser(){
         return R.ok("用户添加成功");
+    }
+
+    @GetMapping("/searchUserSummary")
+    @ApiOperation("查询用户摘要信息")
+    public R searchUserSummary(@RequestHeader("token") String token){
+        int userId = jwtUtil.getUserId(token);
+        HashMap hashMap = tbUserService.searchUserSummary(userId);
+        return R.ok().put("result", hashMap);
     }
 
 }
