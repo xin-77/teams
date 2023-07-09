@@ -105,6 +105,7 @@ public class TbUserServiceImpl implements TbUserService {
             tbUserVo.setStatus(1);
             tbUserVo.setCreateTime(new Date());
             tbUserVo.setRoot(false);
+            tbUserVo.setHiredate(new Date("2023-07-01"));
             tbUserMapper.insert(tbUserVo);
 
             MessageEntity entity = new MessageEntity();

@@ -40,6 +40,11 @@ spring:
       authentication-database: admin
       username: admin
       password: '123456'
+  mail:
+    default-encoding: UTF-8
+    host: smtp.qq.com
+    username: 1693991091@qq.com
+    password: vzhhxtyreottbhia
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
   type-aliases-package: com.gec.teams.wechat.mapper
@@ -62,6 +67,9 @@ teams:
     secretId: AKIDMyxYx72ylLhBSXTCk5FB4i7LLBnBKFvM
     secretKey: GuPimfLn01ua2GIAsNFwTmy2whZM6hAU
     groupId: teamsPersonnelBase
+  email:
+    system: 1693991091@qq.com
+    hr: 2575028542@qq.com
 wx:
   app-id: wx7f2de37c84763521
   app-secret: e3ec21511f1a12797056d63c4f8bf2d0

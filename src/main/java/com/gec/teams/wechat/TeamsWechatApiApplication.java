@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.scheduling.annotation.EnableAsync;
 
 import javax.annotation.PostConstruct;
 import java.lang.reflect.Field;
@@ -19,6 +20,7 @@ import java.util.List;
 @ServletComponentScan
 @MapperScan("com.gec.teams.wechat.mapper")
 @Slf4j
+@EnableAsync
 public class TeamsWechatApiApplication {
 
     public static void main(String[] args) {

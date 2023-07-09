@@ -15,9 +15,13 @@ import com.gec.teams.wechat.mapper.TbHolidaysMapper;
 import com.gec.teams.wechat.mapper.TbUserMapper;
 import com.gec.teams.wechat.mapper.TbWorkdayMapper;
 import com.gec.teams.wechat.service.TbCheckinService;
+import com.gec.teams.wechat.task.EmailTask;
+import com.tencentcloudapi.iai.v20180301.models.VerifyPersonResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -47,7 +51,10 @@ public class TbCheckinServiceImpl extends ServiceImpl<TbCheckinMapper, TbCheckin
     private FaceComponent faceComponent;
     @Autowired
     private TbUserMapper userMapper;
-
+    @Value("${teams.email.hr}")
+    private String hr;
+    @Autowired
+    EmailTask emailTask;
 
     @Override
     public String validCanCheckin(int userId, String date) {
@@ -104,14 +111,14 @@ public class TbCheckinServiceImpl extends ServiceImpl<TbCheckinMapper, TbCheckin
             throw new TeamsException("超出考勤时间段，无法考勤");
         }
         int userId = (Integer) hashMap.get("userId");
-//        Boolean userInfo = faceComponent.getUserInfo(userId + "");
-        Boolean userInfo = true;
+        Boolean userInfo = faceComponent.getUserInfo(userId + "");
+//        Boolean userInfo = true;
         if (userInfo == null) {
             throw new TeamsException("不存在人脸模型");
         } else {
-//            VerifyPersonResponse resp = faceComponent.verifyUser(userId + "", (MultipartFile) hashMap.get("file"));
-//            Boolean isMatch = resp.getIsMatch();
-            Boolean isMatch =true;
+            VerifyPersonResponse resp = faceComponent.verifyUser(userId + "", (MultipartFile) hashMap.get("file"));
+            Boolean isMatch = resp.getIsMatch();
+//            Boolean isMatch =true;
             if (!isMatch) {
                 throw new TeamsException("签到无效，非本人签到");
             } else {
@@ -120,6 +127,19 @@ public class TbCheckinServiceImpl extends ServiceImpl<TbCheckinMapper, TbCheckin
                 String address = (String) hashMap.get("address");
                 String country = (String) hashMap.get("country");
                 String province = (String) hashMap.get("province");
+
+
+                //发送邮件的代码
+                SimpleMailMessage message = new SimpleMailMessage();
+                //指定接受邮件的 邮箱
+                message.setTo(hr);
+                //设置要发送的邮件的 标题
+                message.setSubject("员工签到成功！");
+                //设置要发送的邮件的内容
+                message.setText("领导，员工已经签到成功,在"+district+"街道上班！！！！");
+                //调用一下发送邮件的代码
+                emailTask.sendAsync(message);
+
                 //保存签到记录
                 TbCheckin entity = new TbCheckin();
                 entity.setUserId(userId);

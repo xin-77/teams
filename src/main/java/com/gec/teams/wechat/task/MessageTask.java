@@ -46,7 +46,7 @@ public class MessageTask {
         send(topic, entity);
     }
 
-    public int receive(String topic) {
+    public Integer receive(String topic) {
         int i = 0;
         // 获取链接
         try (Connection connection = factory.newConnection();
@@ -84,7 +84,7 @@ public class MessageTask {
     }
 
     @Async
-    public int receiveAsync(String topic) {
+    public Integer receiveAsync(String topic) {
         return receive(topic);
     }
 
