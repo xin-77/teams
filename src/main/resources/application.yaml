@@ -43,8 +43,8 @@ spring:
   mail:
     default-encoding: UTF-8
     host: smtp.qq.com
-    username: 1693991091@qq.com
-    password: vzhhxtyreottbhia
+    username: 
+    password:
 mybatis:
   mapper-locations: classpath*:mapper/*.xml
   type-aliases-package: com.gec.teams.wechat.mapper
@@ -64,13 +64,13 @@ teams:
     expire: 5 #令牌过期时间
     cache-expire: 10 #令牌保存时间
   tencentcloud:
-    secretId: AKIDMyxYx72ylLhBSXTCk5FB4i7LLBnBKFvM
-    secretKey: GuPimfLn01ua2GIAsNFwTmy2whZM6hAU
-    groupId: teamsPersonnelBase
+    secretId: 
+    secretKey: 
+    groupId: 
   email:
-    system: 1693991091@qq.com
-    hr: 2575028542@qq.com
+    system: 
+    hr: 
 wx:
-  app-id: wx7f2de37c84763521
-  app-secret: e3ec21511f1a12797056d63c4f8bf2d0
+  app-id: 
+  app-secret: 
 
