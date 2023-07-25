@@ -59,5 +59,5 @@ teams:
     expire: 5 #令牌过期时间
     cache-expire: 10 #令牌保存时间
 wx:
-  app-id: wx7f2de37c84763521
-  app-secret: e3ec21511f1a12797056d63c4f8bf2d0
+  app-id: 
+  app-secret: 
