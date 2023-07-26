@@ -9,6 +9,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gec.teams.wechat.entity.MessageEntity;
 import com.gec.teams.wechat.entity.TbUser;
 import com.gec.teams.wechat.exception.TeamsException;
+import com.gec.teams.wechat.mapper.TbDeptMapper;
 import com.gec.teams.wechat.mapper.TbUserMapper;
 import com.gec.teams.wechat.service.TbUserService;
 import com.gec.teams.wechat.task.MessageTask;
@@ -19,9 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author Administrator
@@ -43,6 +42,8 @@ public class TbUserServiceImpl implements TbUserService {
 
     @Autowired
     private MessageTask messageTask;
+    @Autowired
+    private TbDeptMapper tbDeptMapper;
 
 
     @Override
@@ -137,7 +138,7 @@ public class TbUserServiceImpl implements TbUserService {
         }
         // 从消息队列中接收消息,转移到消息表
         Integer id = tbUser.getId();
-        messageTask.receiveAsync(id+"");
+        messageTask.receiveAsync(id + "");
         return id;
     }
 
@@ -149,6 +150,30 @@ public class TbUserServiceImpl implements TbUserService {
     @Override
     public HashMap searchUserSummary(int userId) {
         return tbUserMapper.searchUserSummary(userId);
+    }
+
+    @Override
+    public ArrayList<HashMap> searchUserGroupByDept(String keyword) {
+        ArrayList<HashMap> list_1 = tbDeptMapper.searchDeptMembers(keyword);
+        ArrayList<HashMap> list_2 = tbUserMapper.searchUserGroupByDept(keyword);
+//为部门添加员工
+        for (HashMap map_1 : list_1) {
+            long deptId = (Long) map_1.get("id");
+            ArrayList members = new ArrayList();
+            for (HashMap map_2 : list_2) {
+                long id = (Long) map_2.get("deptId");
+                if (deptId == id) {
+                    members.add(map_2);
+                }
+            }
+            map_1.put("members", members);
+        }
+        return list_1;
+    }
+
+    @Override
+    public ArrayList<HashMap> searchMembers(List param) {
+        return tbUserMapper.searchMembers(param);
     }
 
 

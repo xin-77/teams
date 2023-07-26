@@ -154,6 +154,7 @@ public class TbCheckinServiceImpl extends ServiceImpl<TbCheckinMapper, TbCheckin
                 entity.setCreateTime(d1);
                 checkinMapper.insert(entity);
             }
+
         }
     }
 

@@ -5,7 +5,9 @@ import com.gec.teams.wechat.entity.TbUser;
 import com.gec.teams.wechat.vo.TbUserVo;
 import org.mapstruct.Mapper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -25,6 +27,11 @@ public interface TbUserMapper extends BaseMapper<TbUser> {
     HashMap searchUserSummary(int userId);
 
     int insert(TbUserVo user);
+
+    ArrayList<HashMap> searchUserGroupByDept(String keyword);
+
+    ArrayList<HashMap> searchMembers(List param);
+
 }
 
 

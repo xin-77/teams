@@ -7,6 +7,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
+/**
+ * 消息接收实体
+ */
 @Data
 @Document(collection = "message_ref")
 public class MessageRefEntity implements Serializable {

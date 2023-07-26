@@ -23,6 +23,11 @@ public class MessageTask {
     @Autowired
     private MessageService messageService;
 
+    /**
+     * 消息发送
+     * @param topic
+     * @param entity
+     */
     public void send(String topic, MessageEntity entity) {
         String id = messageService.insertMessage(entity);
         try (Connection connection = factory.newConnection();
@@ -41,11 +46,21 @@ public class MessageTask {
 
     }
 
+    /**
+     * 异步消息发送
+     * @param topic
+     * @param entity
+     */
     @Async
     public void sendAsync(String topic, MessageEntity entity) {
         send(topic, entity);
     }
 
+    /**
+     * 消息接收
+     * @param topic
+     * @return
+     */
     public Integer receive(String topic) {
         int i = 0;
         // 获取链接
@@ -83,11 +98,20 @@ public class MessageTask {
         return i;
     }
 
+    /**
+     * 异步消息接收
+     * @param topic
+     * @return
+     */
     @Async
     public Integer receiveAsync(String topic) {
         return receive(topic);
     }
 
+    /**
+     * 删除消息队列
+     * @param topic
+     */
     public void deleteQueue(String topic) {
         try (Connection connection = factory.newConnection();
              Channel channel = connection.createChannel();
@@ -100,6 +124,10 @@ public class MessageTask {
         }
     }
 
+    /**
+     * 异步删除消息队列
+     * @param topic
+     */
     @Async
     public void deleteQueueAsync(String topic) {
         deleteQueue(topic);

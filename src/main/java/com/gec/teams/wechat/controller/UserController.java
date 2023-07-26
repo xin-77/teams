@@ -1,11 +1,15 @@
 package com.gec.teams.wechat.controller;
 
 
+import cn.hutool.json.JSONUtil;
 import com.gec.teams.wechat.common.utils.R;
 import com.gec.teams.wechat.config.shiro.JwtUtil;
+import com.gec.teams.wechat.exception.TeamsException;
 import com.gec.teams.wechat.service.TbUserService;
 import com.gec.teams.wechat.vo.LoginFormVo;
 import com.gec.teams.wechat.vo.RegisterFormVo;
+import com.gec.teams.wechat.vo.SearchMembersFormVo;
+import com.gec.teams.wechat.vo.SearchUserGroupByDeptFormVo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.apache.shiro.authz.annotation.Logical;
@@ -16,7 +20,9 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -53,6 +59,20 @@ public class UserController {
         //5、响应给前端 页面 令牌 以及用户权限
         return R.ok("用户注册成功").put("token",token).put("permission",permsSet);
     }
+
+    @PostMapping("/searchMembers")
+    @ApiOperation("查询成员")
+    @RequiresPermissions(value = {"ROOT", "MEETING:INSERT", "MEETING:UPDATE"},logical =
+            Logical.OR)
+    public R searchMembers(@Valid @RequestBody SearchMembersFormVo form){
+        if(!JSONUtil.isJsonArray(form.getMembers())){
+            throw new TeamsException("members不是JSON数组");
+        }
+        List param=JSONUtil.parseArray(form.getMembers()).toList(Integer.class);
+        ArrayList list=tbUserService.searchMembers(param);
+        return R.ok().put("result",list);
+    }
+
 
     /**
      * 封装 将token值存放到redis缓存数据库的代码
@@ -92,4 +112,11 @@ public class UserController {
         return R.ok().put("result", hashMap);
     }
 
+    @PostMapping("/searchUserGroupByDept")
+    @ApiOperation("查询员工列表，按照部门分组排列")
+    @RequiresPermissions(value = {"ROOT","EMPLOYEE:SELECT"},logical = Logical.OR)
+    public R searchUserGroupByDept(@Valid @RequestBody SearchUserGroupByDeptFormVo form){
+        ArrayList<HashMap> list=tbUserService.searchUserGroupByDept(form.getKeyword());
+        return R.ok().put("result",list);
+    }
 }

@@ -8,6 +8,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 消息发送实体
+ */
 @Data
 @Document(collection = "message")
 public class MessageEntity implements Serializable {
@@ -18,7 +21,7 @@ public class MessageEntity implements Serializable {
     private String uuid;
     @Indexed
     private Integer senderId;
-    private String senderPhoto = "https://cssl.duitang.com/uploads/item/201810/18/20181018163608_kwrle.jpg";
+    private String senderPhoto = "";
     private String senderName;
     private String msg;
     @Indexed
